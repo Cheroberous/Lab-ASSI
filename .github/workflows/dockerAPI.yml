@@ -15,6 +15,6 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build & Push Image
       run: |
-        echo "${{ secrets.DOCKERPW }}" | docker login -u "cheroberous" --password-stdin
+        echo "cfda228b-1251-4545-b621-b4c4e40b03b4" | docker login -u "cheroberous" --password-stdin
         docker image build -t Chero/gitaction:v1 .
         docker push Chero/gitaction:v1
