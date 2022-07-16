@@ -1,20 +1,27 @@
-name: Python application
+name: Docker API CI
 
 on:
   push:
-   branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
-      
+    branches: [ main ]
+
 jobs:
-  build:
+  build_and_push:
 
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Build & Push Image
-      run: |
-        echo "${{ secrets.DOCKERPW }}" | docker login -u "cheroberous" --password-stdin
-        docker image build -t dab8106/gitaction:v1 .
-        docker push dab8106/gitaction:v1
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Build and Push Api Docker Image to Docker Hub
+      uses: mr-smithers-excellent/docker-build-push@v5
+      with:
+        image: test/test
+        registry: docker.io
+        
+        dockerfile: Dockerfile
+        username: cheroberous
+        password: cfda228b-1251-4545-b621-b4c4e40b03b4
+        addLatest: true
